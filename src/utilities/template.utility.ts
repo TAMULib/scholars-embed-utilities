@@ -337,6 +337,18 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
     Handlebars.registerHelper('increment', (value) => Number(value) + 1);
 
     Handlebars.registerHelper('decrement', (value) => Number(value) - 1);
+
+    Handlebars.registerHelper('allNamesPresent', function(lastName, firstName, middleName, options) {
+      const allNamesPresent = (lastName && typeof lastName === 'string' && lastName.trim().length > 0) &&
+                          (firstName && typeof firstName === 'string' && firstName.trim().length > 0) &&
+                          (middleName && typeof middleName === 'string' && middleName.trim().length > 0);
+      return allNamesPresent ? options.fn(this) : options.inverse(this);
+    });
+
+    Handlebars.registerHelper('or', function(...args) {
+      const options = args.pop();
+      return (args.some(Boolean))  ? options.fn(this) : options.inverse(this);
+    });
 };
 
 export {
