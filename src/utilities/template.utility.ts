@@ -339,9 +339,9 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
     Handlebars.registerHelper('decrement', (value) => Number(value) - 1);
 
     Handlebars.registerHelper('allNamesPresent', function(lastName, firstName, middleName, options) {
-      const allNamesPresent = ( lastName && typeof lastName === 'string' && lastName.trim().length >0 ) &&
-                          ( firstName && typeof firstName === 'string' && firstName.trim().length >0 ) &&
-                          ( middleName && typeof middleName === 'string' && middleName.trim().length >0 );
+      const allNamesPresent = (lastName && typeof lastName === 'string' && lastName.trim().length > 0) &&
+                          (firstName && typeof firstName === 'string' && firstName.trim().length > 0) &&
+                          (middleName && typeof middleName === 'string' && middleName.trim().length > 0);
       return allNamesPresent ? options.fn(this) : options.inverse(this);
     });
 
