@@ -344,6 +344,11 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
                           ( middleName && typeof middleName === 'string' && middleName.trim().length >0 );
       return allNamesPresent ? options.fn(this) : options.inverse(this);
     });
+
+    Handlebars.registerHelper('or', function(...args) {
+      const options = args.pop();
+      return (args.some(Boolean))  ? options.fn(this) : options.inverse(this);
+    });
 };
 
 export {
