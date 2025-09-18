@@ -346,9 +346,10 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
     });
 
     Handlebars.registerHelper('or', function(...args) {
-      const options = args.pop();
-      return (args.some(Boolean))  ? options.fn(this) : options.inverse(this);
+      args.pop();
+      return args.some(arg => typeof arg === 'string' && arg.trim().length > 0);
     });
+
 };
 
 export {
