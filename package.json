@@ -3,7 +3,6 @@
   "version": "0.4.1",
   "description": "Embed utilities for Scholars Discovery UI clients",
   "keywords": [],
-  "author": "William Welling <wwelling@library.tamu.edu>",
   "license": "MIT",
   "private": false,
   "main": "lib/index.js",
