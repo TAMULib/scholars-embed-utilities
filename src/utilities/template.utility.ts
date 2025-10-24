@@ -263,6 +263,20 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
         return out;
     });
 
+    Handlebars.registerHelper('eachSplit', function (value, delimeter, options) {
+        let out = '';
+        if (value) {
+            value = value.toString();
+            const parts = value.split(delimeter);
+            for (const i in parts) {
+                if (parts.hasOwnProperty(i)) {
+                    out += options.fn(parts[i].trim());
+                }
+            }
+        }
+        return out;
+    });
+
     Handlebars.registerHelper('tags', (taggable, options) => {
         const tags = getTags(taggable);
         let out = '';
