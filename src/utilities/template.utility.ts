@@ -187,15 +187,29 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
       return item && item.length ? item.length : 0;
     });
 
+    /**
+     * The helper truncates an array of objects so that the
+     * length does not exceed the specified limit.
+     *
+     * Usage:
+     *   {{#each (truncateArray affiliatedResearchAreas limit)}} ... {{/each}}
+     */
     Handlebars.registerHelper('truncateArray', function (values, limit) {
       if (!Array.isArray(values)) return [];
       return values.slice(0, limit);
     });
 
-    Handlebars.registerHelper('remainingArray', function (values, limit) {
-        console.log('[remainingArray] limit:', limit);
+    /**
+     * The helper displays the entire items in an array once the `Show more` link is clicked.
+     *
+     * This supports expand/collapse behavior.
+     *
+     * Usage:
+     *   {{#each (showAllItems affiliatedResearchAreas limit)}} ... {{/each}}
+     */
+    Handlebars.registerHelper('showAllItems', function (values) {
       if (!Array.isArray(values)) return [];
-      return values; //.slice(limit);
+      return values;
     });
 
     /**
@@ -210,106 +224,6 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
     Handlebars.registerHelper('isLong', function (values, limit) {
       return Array.isArray(values) && values.length > limit;
     });
-
-    // Handlebars.registerHelper('isLong', function (value, limit) {
-    //     console.log('[isLong] type:', typeof value);
-    //     console.log('[isLong] limit:', limit);
-
-    //     if (value == null) {
-    //     console.log('[isLong] value is null or undefined → return false');
-    //     return false;
-    //     }
-
-    //     if (typeof value === 'string') {
-    //     const result = value.length > limit;
-    //     console.log('[isLong] string length:', value.length, '→ result:', result);
-    //     return result;
-    //     }
-
-    //     if (Array.isArray(value)) {
-    //     const result = value.length > limit;
-    //     console.log('[isLong] array length:', value.length, '→ result:', result);
-    //     return result;
-    // }
-
-    // console.log('[isLong] unsupported type → return false');
-    // return false;
-    // });
-
-    /**
-     * The helper truncates an array of objects so that the
-     * length does not exceed the specified limit.
-     *
-     * Usage:
-     *   {{#each (truncateArray affiliatedResearchAreas limit)}} ... {{/each}}
-     */
-    // Handlebars.registerHelper('truncateValue', function (values, limit = 20) {
-    //   if (!values) return values;
-
-    //   if (typeof values === 'string') {
-    //     return values.length > limit
-    //       ? values.slice(0, limit)
-    //       : values;
-    //   }
-
-    //   if (Array.isArray(values)) {
-    //     let length = 0;
-    //     const result = [];
-
-    //     for (let i = 0; i < values.length; i++) {
-    //       const label = values[i]?.label || "";
-    //       const additionalLength = label.length + (result.length ? 2 : 0);
-
-    //       if (length + additionalLength > limit) break;
-
-    //       length += additionalLength;
-    //       result.push(values[i]);
-    //     }
-
-    //     return result;
-    //   }
-
-    //   return values;
-    // });
-
-    // Handlebars.registerHelper('truncateArray', function (values, limit) {
-    //     console.log('[truncateArray] starts');
-    //     console.log('[truncateArray] type:', typeof values);
-    //     console.log('[truncateArray] limit:', limit);
-
-    //     if (!Array.isArray(values)) {
-    //     console.log('[truncateArray] values is NOT array so returning empty array');
-    //     return [];
-    //     }
-
-    //     console.log('[truncateArray] original length:', values.length);
-
-    //     const result = values.slice(0, limit);
-
-    //     console.log('[truncateArray] truncated length:', result.length);
-    //     console.log('[truncateArray] ends');
-    //     return result;
-    // });
-
-    // Handlebars.registerHelper('remainingArray', function (values, limit) {
-    //   console.log('[remainingArray] starts');
-    //   console.log('[remainingArray] type:', typeof values);
-    //   console.log('[remainingArray] limit:', limit);
-
-    //   if (!Array.isArray(values)) {
-    //     console.log('[remainingArray] values is NOT array');
-    //     return [];
-    //   }
-
-    //   console.log('[remainingArray] original length:', values.length);
-
-    //   const result = values.slice(limit);
-
-    //   console.log('[remainingArray] remaining length:', result.length);
-    //   console.log('[remainingArray] ends');
-
-    //   return result;
-    // });
 
     Handlebars.registerHelper('toDate', (value) => value !== undefined ? new Date(value).toISOString() : value);
 
