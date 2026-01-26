@@ -183,6 +183,50 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
         return value;
     });
 
+    Handlebars.registerHelper('length', function (item) {
+      return item && item.length ? item.length : 0;
+    });
+
+    /**
+     * The helper truncates an array of objects so that the
+     * length does not exceed the specified limit.
+     *
+     * Usage:
+     *   {{#each (truncateArray affiliatedResearchAreas limit)}} ... {{/each}}
+     */
+    Handlebars.registerHelper('truncateArray', function (values, limit) {
+      if (!Array.isArray(values) || !Number.isInteger(limit) || limit < 0) {
+        return [];
+      }
+      return values.slice(0, limit);
+    });
+
+    /**
+     * The helper displays the entire items in an array once the `Show more` link is clicked.
+     *
+     * This supports expand/collapse behavior.
+     *
+     * Usage:
+     *   {{#each (showAllItems affiliatedResearchAreas limit)}} ... {{/each}}
+     */
+    Handlebars.registerHelper('showAllItems', function (values) {
+      if (!Array.isArray(values)) return [];
+      return values;
+    });
+
+    /**
+     * This determines whether the array list value exceeds limit.
+     *
+     * Usage:
+     *   {{#isLong affiliatedResearchAreas limit}} ... {{else}} ... {{/isLong}}
+     *
+     * Executes the `true` block when total length > limit,
+     * else executes the inverse block.
+     */
+    Handlebars.registerHelper('isLong', function (values, limit) {
+      return Array.isArray(values) && Number.isInteger(limit) && values.length > limit;
+    });
+
     Handlebars.registerHelper('toDate', (value) => value !== undefined ? new Date(value).toISOString() : value);
 
     Handlebars.registerHelper('workByStudent', (workByStudent, options) => {
