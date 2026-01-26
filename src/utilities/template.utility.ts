@@ -195,8 +195,7 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
      *   {{#each (truncateArray affiliatedResearchAreas limit)}} ... {{/each}}
      */
     Handlebars.registerHelper('truncateArray', function (values, limit) {
-      if (!Array.isArray(values)) return [];
-      if (!Number.isInteger(limit) || limit < 0) {
+      if (!Array.isArray(values) || !Number.isInteger(limit) || limit < 0) {
         return [];
       }
       return values.slice(0, limit);
@@ -225,7 +224,7 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
      * else executes the inverse block.
      */
     Handlebars.registerHelper('isLong', function (values, limit) {
-      return Array.isArray(values) && values.length > limit;
+      return Array.isArray(values) && Number.isInteger(limit) && values.length > limit;
     });
 
     Handlebars.registerHelper('toDate', (value) => value !== undefined ? new Date(value).toISOString() : value);
