@@ -196,6 +196,9 @@ const initializeTemplateHelpers = (mapping: any = {}) => {
      */
     Handlebars.registerHelper('truncateArray', function (values, limit) {
       if (!Array.isArray(values)) return [];
+      if (!Number.isInteger(limit) || limit < 0) {
+        return [];
+      }
       return values.slice(0, limit);
     });
 
